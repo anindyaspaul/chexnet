@@ -125,7 +125,6 @@ def train_model(
                     loss.backward()
                     optimizer.step()
 
-                # running_loss += loss.data[0] * batch_size
                 running_loss += loss.item() * batch_size
 
             epoch_loss = running_loss / dataset_sizes[phase]
