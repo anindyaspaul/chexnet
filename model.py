@@ -125,7 +125,8 @@ def train_model(
                     loss.backward()
                     optimizer.step()
 
-                running_loss += loss.item() * batch_size
+                running_loss += loss.item() * batch_size # i changed this part
+                print(i * batch_size / dataset_sizes[phase] * 100) #i also added this line of code to keep track of the progress inside an epoch
 
             epoch_loss = running_loss / dataset_sizes[phase]
 
@@ -185,7 +186,7 @@ def train_model(
     return model, best_epoch
 
 
-def train_cnn(PATH_TO_IMAGES, LR, WEIGHT_DECAY):
+def train_cnn(PATH_TO_IMAGES, LR, WEIGHT_DECAY, NUM_EPOCHS=100, BATCH_SIZE=16):
     """
     Train torchvision model to NIH data given high level hyperparameters.
 
@@ -199,8 +200,6 @@ def train_cnn(PATH_TO_IMAGES, LR, WEIGHT_DECAY):
         aucs: AUCs for each train,test tuple
 
     """
-    NUM_EPOCHS = 100
-    BATCH_SIZE = 16
 
     try:
         rmtree('results/')
